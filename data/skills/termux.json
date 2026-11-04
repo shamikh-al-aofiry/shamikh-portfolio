@@ -1,0 +1,12 @@
+{
+  "id": "termux",
+  "slug": "termux",
+  "name": "Termux",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 12,
+  "icon": "",
+  "icon_key": "terminal"
+}

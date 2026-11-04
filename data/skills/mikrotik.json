@@ -1,0 +1,12 @@
+{
+  "id": "mikrotik",
+  "slug": "mikrotik",
+  "name": "MikroTik",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 2,
+  "icon": "",
+  "icon_key": "router"
+}

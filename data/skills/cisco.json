@@ -1,0 +1,12 @@
+{
+  "id": "cisco",
+  "slug": "cisco",
+  "name": "Cisco",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 1,
+  "icon": "",
+  "icon_key": "network-switch"
+}

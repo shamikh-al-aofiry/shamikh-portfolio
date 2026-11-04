@@ -1,0 +1,12 @@
+{
+  "id": "mysql",
+  "slug": "mysql",
+  "name": "MySQL",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 7,
+  "icon": "",
+  "icon_key": "database"
+}

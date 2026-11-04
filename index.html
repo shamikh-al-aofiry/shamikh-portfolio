@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Shamikh Al-Aofiry: Building practical technology solutions across network infrastructure, automation, and applied AI.">
+  <meta name="theme-color" content="#ffffff">
+  <title>Shamikh Al-Aofiry | Information Technology Graduate</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%229%22 fill=%22%231d3b5e%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-family=%22Arial%22 font-size=%2212%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3ESA%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <!-- Source template: tools/build.py fills every data-field and slot from data/*.json. -->
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" data-site-header>
+    <div class="site-header__inner">
+      <a class="site-brand" href="#top" aria-label="Shamikh Al-Aofiry, home">
+        <span class="site-brand__mark" aria-hidden="true">SA</span>
+        <span class="site-brand__name" data-field="profile.name">Shamikh Al-Aofiry</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-controls="main-navigation" aria-expanded="false" data-menu-toggle hidden>
+        <span class="menu-toggle__bars" aria-hidden="true"></span><span data-menu-label>Menu</span>
+      </button>
+      <nav id="main-navigation" class="site-nav" aria-label="Main navigation">
+        <ul class="navigation-list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a class="nav-contact" href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <h1 id="hero-title" class="hero__name" data-field="profile.name">Shamikh Al-Aofiry</h1>
+          <p class="hero__role" data-field="profile.title">Information Technology Graduate</p>
+          <p class="hero__focus" data-field="profile.subtitle">Networking &amp; Infrastructure | AI &amp; Automation</p>
+          <p class="hero__intro" data-field="profile.introduction">Building practical technology solutions across network infrastructure, automation, and applied AI.</p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#portfolio"><span>Portfolio</span><svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <!-- slot:hero.resume --><!-- /slot:hero.resume -->
+          </div>
+        </div>
+        <div class="hero__visual">
+          <div class="hero__stage" aria-hidden="true"><span class="hero__stage-mark">IT</span></div>
+          <figure class="hero__portrait"><!-- slot:hero.portrait --><!-- /slot:hero.portrait --></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section section--tint" aria-labelledby="about-title">
+      <div class="container about">
+        <header class="section-head"><h2 id="about-title">About</h2></header>
+        <div class="about__body reveal">
+          <p class="about__lead" data-field="profile.biography">Biography</p>
+          <dl class="about__facts"><!-- slot:about.facts --><!-- /slot:about.facts --></dl>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section" aria-labelledby="portfolio-title">
+      <div class="container">
+        <header class="section-head"><h2 id="portfolio-title">Portfolio</h2></header>
+        <div class="project-list"><!-- slot:projects --><!-- /slot:projects --></div>
+      </div>
+    </section>
+
+    <!-- slot:other-projects --><!-- /slot:other-projects -->
+
+    <section id="skills" class="section section--tint" aria-labelledby="skills-title">
+      <div class="container">
+        <header class="section-head"><h2 id="skills-title">Skills</h2></header>
+        <ul class="skill-grid"><!-- slot:skills --><!-- /slot:skills --></ul>
+      </div>
+    </section>
+
+    <section id="education" class="section" aria-labelledby="education-title">
+      <div class="container education">
+        <header class="section-head"><h2 id="education-title">Education</h2></header>
+        <article class="education-card reveal">
+          <p class="education-card__years" data-field="education.years">2023 &ndash; 2027</p>
+          <h3 data-field="education.university">University</h3>
+          <p class="education-card__degree" data-field="education.degree">Degree</p>
+          <p class="education-card__college" data-field="education.college">College</p>
+          <!-- slot:education.extra --><!-- /slot:education.extra -->
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section section--dark" aria-labelledby="contact-title">
+      <div class="container contact">
+        <div class="contact__text reveal">
+          <h2 id="contact-title">Get in Touch</h2>
+          <p data-field="profile.contact_message">Contact message</p>
+        </div>
+        <div class="contact__actions reveal" style="--i:1">
+          <!-- slot:contact.action --><!-- /slot:contact.action -->
+          <ul class="social-links" aria-label="Social links"><!-- slot:contact.social --><!-- /slot:contact.social --></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; 2026 <span data-field="profile.name">Shamikh Al-Aofiry</span></p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <ul class="footer-social-links" aria-label="Social links"><!-- slot:footer.social --><!-- /slot:footer.social --></ul>
+    </div>
+  </footer>
+</body>
+</html>

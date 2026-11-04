@@ -1,0 +1,12 @@
+{
+  "id": "vmware",
+  "slug": "vmware",
+  "name": "VMware",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 5,
+  "icon": "",
+  "icon_key": "virtual-machines"
+}

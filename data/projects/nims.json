@@ -1,0 +1,124 @@
+{
+  "id": "nims",
+  "slug": "nims",
+  "name": "NIM&S",
+  "full_name": "Network Infrastructure Management & Security",
+  "summary": "A university graduation project for a centralized network infrastructure management and monitoring platform. The project is being planned and developed.",
+  "overview": "",
+  "problem": "",
+  "objectives": "",
+  "role": "Project Manager and Infrastructure Coordinator",
+  "features": [
+    {
+      "text": "Monitor device availability and connectivity",
+      "status": "planned"
+    },
+    {
+      "text": "Measure response time and packet loss",
+      "status": "planned"
+    },
+    {
+      "text": "Collect available traffic, CPU and memory metrics through approved sources and protocols",
+      "status": "planned"
+    },
+    {
+      "text": "Store device information, measurements and network events",
+      "status": "planned"
+    },
+    {
+      "text": "Provide a centralized view of device status, performance and historical data",
+      "status": "planned"
+    },
+    {
+      "text": "Explore anomaly detection using Isolation Forest",
+      "status": "planned"
+    },
+    {
+      "text": "Explore forecasting using Prophet when sufficient data is available",
+      "status": "planned"
+    },
+    {
+      "text": "Support selected network administration operations through SSH",
+      "status": "planned"
+    },
+    {
+      "text": "Collect Syslog events",
+      "status": "planned"
+    },
+    {
+      "text": "Send notifications to network administrators using Firebase",
+      "status": "planned"
+    }
+  ],
+  "technologies": [
+    {
+      "text": "ASP.NET Core REST API",
+      "status": "planned"
+    },
+    {
+      "text": "Python FastAPI",
+      "status": "planned"
+    },
+    {
+      "text": "PostgreSQL",
+      "status": "planned"
+    },
+    {
+      "text": "HTML",
+      "status": "planned"
+    },
+    {
+      "text": "CSS",
+      "status": "planned"
+    },
+    {
+      "text": "JavaScript",
+      "status": "planned"
+    },
+    {
+      "text": "Flutter",
+      "status": "planned"
+    },
+    {
+      "text": "SNMP",
+      "status": "planned"
+    },
+    {
+      "text": "ICMP/Ping",
+      "status": "planned"
+    },
+    {
+      "text": "Syslog",
+      "status": "planned"
+    },
+    {
+      "text": "SSH",
+      "status": "planned"
+    },
+    {
+      "text": "Firebase",
+      "status": "planned"
+    },
+    {
+      "text": "Docker",
+      "status": "planned"
+    },
+    {
+      "text": "Nginx (where needed)",
+      "status": "planned"
+    }
+  ],
+  "cover": "",
+  "images": [],
+  "evidence": [],
+  "video_url": "",
+  "github_url": "",
+  "live_url": "",
+  "skills": [],
+  "featured": true,
+  "status": "published",
+  "order": 1,
+  "live_verified": false,
+  "context": "Graduation project",
+  "stage": "in-progress"
+}

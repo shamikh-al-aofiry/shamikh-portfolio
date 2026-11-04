@@ -1,0 +1,12 @@
+{
+  "id": "windows-server",
+  "slug": "windows-server",
+  "name": "Windows Server",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 6,
+  "icon": "",
+  "icon_key": "server"
+}

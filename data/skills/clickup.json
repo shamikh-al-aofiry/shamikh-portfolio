@@ -1,0 +1,12 @@
+{
+  "id": "clickup",
+  "slug": "clickup",
+  "name": "ClickUp",
+  "description": "",
+  "experience": "",
+  "evidence": [],
+  "status": "published",
+  "order": 13,
+  "icon": "",
+  "icon_key": "task-board"
+}

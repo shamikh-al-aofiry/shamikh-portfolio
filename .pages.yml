@@ -1,0 +1,821 @@
+{
+  "media": [
+    {
+      "name": "profile",
+      "label": "Profile",
+      "input": "media/profile",
+      "output": "/media/profile",
+      "rename": "safe"
+    },
+    {
+      "name": "projects",
+      "label": "Projects",
+      "input": "media/projects",
+      "output": "/media/projects",
+      "rename": "safe"
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "input": "media/skills",
+      "output": "/media/skills",
+      "rename": "safe"
+    },
+    {
+      "name": "certificates",
+      "label": "Certificates",
+      "input": "media/certificates",
+      "output": "/media/certificates",
+      "rename": "safe"
+    },
+    {
+      "name": "cv",
+      "label": "Cv",
+      "input": "media/cv",
+      "output": "/media/cv",
+      "rename": "safe"
+    },
+    {
+      "name": "documents",
+      "label": "Documents",
+      "input": "media/documents",
+      "output": "/media/documents",
+      "rename": "safe"
+    }
+  ],
+  "content": [
+    {
+      "name": "profile",
+      "label": "Profile & contact",
+      "type": "file",
+      "path": "data/profile.json",
+      "format": "json",
+      "fields": [
+        {
+          "name": "name",
+          "label": "Display name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "title",
+          "label": "Professional title",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "subtitle",
+          "label": "Subtitle",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "introduction",
+          "label": "Hero introduction",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "biography",
+          "label": "Biography",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "contact_message",
+          "label": "Contact message",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "profile_image",
+          "label": "Profile image",
+          "type": "image",
+          "required": false,
+          "options": {
+            "media": "profile"
+          },
+          "description": "Your real portrait. A neutral or light background blends best with the hero."
+        },
+        {
+          "name": "email",
+          "label": "Public email",
+          "type": "string"
+        },
+        {
+          "name": "github",
+          "label": "GitHub profile URL",
+          "type": "string",
+          "required": false,
+          "description": "Used for the GitHub contact icon and the Other Projects button. Leave empty to hide both.",
+          "pattern": {
+            "regex": "^(https://github\\.com/[A-Za-z0-9-]+/?)?$",
+            "message": "Leave empty or enter a profile URL like https://github.com/username"
+          }
+        },
+        {
+          "name": "linkedin",
+          "label": "LinkedIn URL",
+          "type": "string",
+          "required": false,
+          "pattern": {
+            "regex": "^(https://[^\\s]+)?$",
+            "message": "Leave empty or enter a full https:// URL."
+          }
+        },
+        {
+          "name": "telegram",
+          "label": "Telegram URL",
+          "type": "string",
+          "required": false,
+          "pattern": {
+            "regex": "^(https://[^\\s]+)?$",
+            "message": "Leave empty or enter a full https:// URL."
+          }
+        },
+        {
+          "name": "resume_pdf",
+          "label": "Resume PDF",
+          "type": "file",
+          "required": false,
+          "options": {
+            "media": "cv"
+          }
+        },
+        {
+          "name": "resume_verified",
+          "label": "Resume manually verified",
+          "type": "boolean",
+          "required": true,
+          "description": "Enable only after you have reviewed a completed and valid PDF."
+        }
+      ]
+    },
+    {
+      "name": "education",
+      "label": "Education",
+      "type": "file",
+      "path": "data/education.json",
+      "format": "json",
+      "fields": [
+        {
+          "name": "university",
+          "label": "University",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "college",
+          "label": "College",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "degree",
+          "label": "Degree",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "major",
+          "label": "Major",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "start_year",
+          "label": "Start year",
+          "type": "number"
+        },
+        {
+          "name": "expected_year",
+          "label": "Expected graduation year",
+          "type": "number"
+        },
+        {
+          "name": "description",
+          "label": "Optional description",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "completed",
+          "label": "Degree completed",
+          "type": "boolean",
+          "required": false,
+          "description": "Enable only after graduation is official. Removes the (Expected) label."
+        }
+      ]
+    },
+    {
+      "name": "projects",
+      "label": "Projects",
+      "type": "collection",
+      "path": "data/projects",
+      "format": "json",
+      "filename": {
+        "template": "{id}.json",
+        "field": "create"
+      },
+      "view": {
+        "primary": "name",
+        "fields": [
+          "name",
+          "status",
+          "order",
+          "featured",
+          "stage"
+        ],
+        "sort": [
+          "order",
+          "name",
+          "status"
+        ],
+        "search": [
+          "name",
+          "full_name",
+          "summary"
+        ],
+        "default": {
+          "sort": "order",
+          "order": "asc"
+        }
+      },
+      "fields": [
+        {
+          "name": "id",
+          "label": "Stable ID",
+          "type": "string",
+          "required": true,
+          "description": "Unique lowercase ID. Do not change after linking.",
+          "pattern": {
+            "regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "message": "Use lowercase letters, digits and single hyphens only (e.g. my-project)."
+          }
+        },
+        {
+          "name": "slug",
+          "label": "URL slug",
+          "type": "string",
+          "required": true,
+          "description": "Lowercase letters, digits and hyphens only. Page address: /projects/<slug>/. Changing it later breaks old links.",
+          "pattern": {
+            "regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "message": "Use lowercase letters, digits and single hyphens only (e.g. my-project)."
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "label": "Publication status",
+          "type": "select",
+          "required": true,
+          "options": {
+            "values": [
+              {
+                "name": "published",
+                "label": "Published (visible on the site)"
+              },
+              {
+                "name": "draft",
+                "label": "Draft (hidden)"
+              },
+              {
+                "name": "archived",
+                "label": "Archived (hidden, kept for reference)"
+              }
+            ]
+          },
+          "description": "Published = visible. Draft or Archived = hidden from the site without deleting anything. Use Delete in the CMS only to remove a project permanently."
+        },
+        {
+          "name": "order",
+          "label": "Display order",
+          "type": "number",
+          "required": true,
+          "description": "Lower numbers appear first (1, 2, 3...). Use gaps like 10, 20, 30 to insert projects later without renumbering."
+        },
+        {
+          "name": "context",
+          "label": "Context label",
+          "type": "string",
+          "required": false,
+          "description": "Optional short label, for example Graduation project."
+        },
+        {
+          "name": "stage",
+          "label": "Project stage",
+          "type": "select",
+          "required": false,
+          "options": {
+            "values": [
+              "",
+              "planning",
+              "in-progress",
+              "completed"
+            ]
+          },
+          "description": "Shown as a small badge. Leave empty when not applicable."
+        },
+        {
+          "name": "full_name",
+          "label": "Full name",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "summary",
+          "label": "Short description",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "overview",
+          "label": "Project overview",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "problem",
+          "label": "Problem addressed",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "objectives",
+          "label": "Objectives",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "role",
+          "label": "Your role",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "features",
+          "label": "Features",
+          "type": "object",
+          "list": true,
+          "required": false,
+          "fields": [
+            {
+              "name": "text",
+              "label": "Description",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "status",
+              "label": "Implementation status",
+              "type": "select",
+              "required": true,
+              "options": {
+                "values": [
+                  "planned",
+                  "implemented",
+                  "verified"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "technologies",
+          "label": "Technologies",
+          "type": "object",
+          "list": true,
+          "required": false,
+          "fields": [
+            {
+              "name": "text",
+              "label": "Description",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "status",
+              "label": "Implementation status",
+              "type": "select",
+              "required": true,
+              "options": {
+                "values": [
+                  "planned",
+                  "implemented",
+                  "verified"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "cover",
+          "label": "Cover image",
+          "type": "image",
+          "required": false,
+          "options": {
+            "media": "projects"
+          }
+        },
+        {
+          "name": "images",
+          "label": "Project images",
+          "type": "image",
+          "required": false,
+          "options": {
+            "media": "projects",
+            "multiple": true
+          }
+        },
+        {
+          "name": "evidence",
+          "label": "Evidence",
+          "type": "object",
+          "required": false,
+          "list": true,
+          "fields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "file",
+              "label": "Document or image",
+              "type": "file",
+              "required": false,
+              "options": {
+                "media": "documents"
+              }
+            },
+            {
+              "name": "url",
+              "label": "External evidence URL",
+              "type": "string",
+              "required": false
+            }
+          ]
+        },
+        {
+          "name": "video_url",
+          "label": "Video URL",
+          "type": "string",
+          "required": false,
+          "pattern": {
+            "regex": "^(https://[^\\s]+)?$",
+            "message": "Leave empty or enter a full https:// URL."
+          }
+        },
+        {
+          "name": "github_url",
+          "label": "GitHub repository URL",
+          "type": "string",
+          "required": false,
+          "description": "Optional. When set, the project image opens this repository and a GitHub Repository button appears. Leave empty to hide both.",
+          "pattern": {
+            "regex": "^(https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?)?$",
+            "message": "Leave empty or enter a repository URL like https://github.com/user/repo"
+          }
+        },
+        {
+          "name": "live_url",
+          "label": "Live demo URL",
+          "type": "string",
+          "required": false,
+          "pattern": {
+            "regex": "^(https://[^\\s]+)?$",
+            "message": "Leave empty or enter a full https:// URL."
+          },
+          "description": "Optional https:// link to the running app. Stays hidden until \"Live demo checked and available\" is enabled."
+        },
+        {
+          "name": "live_verified",
+          "label": "Live demo checked and available",
+          "type": "boolean",
+          "required": true,
+          "description": "Enable only after checking that the live URL works."
+        },
+        {
+          "name": "skills",
+          "label": "Related skills",
+          "type": "reference",
+          "required": false,
+          "options": {
+            "collection": "skills",
+            "multiple": true,
+            "value": "{fields.id}",
+            "label": "{fields.name}"
+          }
+        },
+        {
+          "name": "featured",
+          "label": "Show as a large card in Portfolio",
+          "type": "boolean",
+          "required": true,
+          "description": "On = card in the Portfolio section. Off = compact entry under Other Projects (still published, with its own details page)."
+        }
+      ],
+      "operations": {
+        "create": true,
+        "rename": false,
+        "delete": true
+      }
+    },
+    {
+      "name": "skills",
+      "label": "Skills",
+      "type": "collection",
+      "path": "data/skills",
+      "format": "json",
+      "filename": {
+        "template": "{id}.json",
+        "field": "create"
+      },
+      "view": {
+        "primary": "name",
+        "fields": [
+          "name",
+          "status",
+          "order",
+          "icon_key"
+        ],
+        "sort": [
+          "order",
+          "name"
+        ],
+        "search": [
+          "name"
+        ],
+        "default": {
+          "sort": "order",
+          "order": "asc"
+        }
+      },
+      "fields": [
+        {
+          "name": "id",
+          "label": "Stable ID",
+          "type": "string",
+          "required": true,
+          "description": "Unique lowercase ID. Do not change after linking.",
+          "pattern": {
+            "regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "message": "Use lowercase letters, digits and single hyphens only (e.g. my-project)."
+          }
+        },
+        {
+          "name": "slug",
+          "label": "URL slug",
+          "type": "string",
+          "required": true,
+          "description": "Lowercase letters, digits and hyphens only.",
+          "pattern": {
+            "regex": "^[a-z0-9]+(-[a-z0-9]+)*$",
+            "message": "Use lowercase letters, digits and single hyphens only (e.g. my-project)."
+          }
+        },
+        {
+          "name": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "status",
+          "label": "Publication status",
+          "type": "select",
+          "required": true,
+          "options": {
+            "values": [
+              {
+                "name": "published",
+                "label": "Published (visible on the site)"
+              },
+              {
+                "name": "draft",
+                "label": "Draft (hidden)"
+              },
+              {
+                "name": "archived",
+                "label": "Archived (hidden, kept for reference)"
+              }
+            ]
+          },
+          "description": "Only published items from the reviewed publishing branch enter the site."
+        },
+        {
+          "name": "order",
+          "label": "Display order",
+          "type": "number",
+          "required": true,
+          "description": "Lower numbers appear first."
+        },
+        {
+          "name": "icon",
+          "label": "Official icon (upload)",
+          "type": "image",
+          "required": false,
+          "options": {
+            "media": "skills"
+          },
+          "description": "Optional official, clearly licensed SVG or PNG (square works best). Overrides the built-in icon. Shown on a white tile so brand colors stay accurate."
+        },
+        {
+          "name": "icon_key",
+          "label": "Built-in icon",
+          "type": "select",
+          "required": false,
+          "options": {
+            "values": [
+              {
+                "name": "",
+                "label": "None (text monogram)"
+              },
+              {
+                "name": "network-switch",
+                "label": "Network switch"
+              },
+              {
+                "name": "router",
+                "label": "Router"
+              },
+              {
+                "name": "packet-analyzer",
+                "label": "Packet analyzer"
+              },
+              {
+                "name": "containers",
+                "label": "Containers"
+              },
+              {
+                "name": "virtual-machines",
+                "label": "Virtual machines"
+              },
+              {
+                "name": "server",
+                "label": "Server"
+              },
+              {
+                "name": "database",
+                "label": "Database"
+              },
+              {
+                "name": "code-cpp",
+                "label": "C++ code"
+              },
+              {
+                "name": "code-csharp",
+                "label": "C# code"
+              },
+              {
+                "name": "mobile-app",
+                "label": "Mobile app"
+              },
+              {
+                "name": "terminal",
+                "label": "Terminal"
+              },
+              {
+                "name": "web-stack",
+                "label": "Web server stack"
+              },
+              {
+                "name": "task-board",
+                "label": "Task board"
+              }
+            ]
+          },
+          "description": "Generic line icon drawn for this site (not an official logo). Used when no official icon is uploaded."
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "experience",
+          "label": "Practical experience",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "evidence",
+          "label": "Evidence",
+          "type": "object",
+          "required": false,
+          "list": true,
+          "fields": [
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "text",
+              "required": false
+            },
+            {
+              "name": "file",
+              "label": "Document or image",
+              "type": "file",
+              "required": false,
+              "options": {
+                "media": "documents"
+              }
+            },
+            {
+              "name": "url",
+              "label": "External evidence URL",
+              "type": "string",
+              "required": false
+            }
+          ]
+        }
+      ],
+      "operations": {
+        "create": true,
+        "rename": false,
+        "delete": true
+      }
+    },
+    {
+      "name": "certificates",
+      "label": "Certificates",
+      "type": "file",
+      "path": "data/certificates.json",
+      "format": "json",
+      "list": true,
+      "fields": [
+        {
+          "name": "name",
+          "label": "Certificate name",
+          "type": "string"
+        },
+        {
+          "name": "issuer",
+          "label": "Issuing organization",
+          "type": "string"
+        },
+        {
+          "name": "issue_date",
+          "label": "Issue date",
+          "type": "date",
+          "required": false
+        },
+        {
+          "name": "file",
+          "label": "Certificate",
+          "type": "file",
+          "required": false,
+          "options": {
+            "media": "certificates"
+          }
+        },
+        {
+          "name": "verification_url",
+          "label": "Verification URL",
+          "type": "string",
+          "required": false,
+          "pattern": {
+            "regex": "^(https://[^\\s]+)?$",
+            "message": "Leave empty or enter a full https:// URL."
+          }
+        },
+        {
+          "name": "description",
+          "label": "Description",
+          "type": "text",
+          "required": false
+        },
+        {
+          "name": "status",
+          "label": "Publication status",
+          "type": "select",
+          "required": true,
+          "options": {
+            "values": [
+              {
+                "name": "published",
+                "label": "Published (visible on the site)"
+              },
+              {
+                "name": "draft",
+                "label": "Draft (hidden)"
+              },
+              {
+                "name": "archived",
+                "label": "Archived (hidden, kept for reference)"
+              }
+            ]
+          },
+          "description": "Only published items from the reviewed publishing branch enter the site."
+        }
+      ]
+    }
+  ]
+}
