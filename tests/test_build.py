@@ -25,7 +25,7 @@ with tempfile.TemporaryDirectory() as tmp:
  assert re.search(r'<a class="button button--primary" href="#portfolio"><span>Portfolio</span>',home)
  assert '<a href="#portfolio">Portfolio</a>' in home
  assert 'Selected projects exploring infrastructure, productivity, and design.' not in home
- assert 'Information Technology</span> Graduate' in home and 'Get in Touch' in home and 'Reach out' in home
+ assert 'hero__field">Information Technology</span> Student' in home and 'Get in Touch' in home and 'Reach out' in home
  assert 'Download Resume' not in home,'resume button must stay hidden without a verified PDF'
  assert 'Explore GitHub Projects' not in home,'GitHub button must stay hidden without a profile URL'
  assert '%' not in ''.join(re.findall(r'<ul class="skill-grid">.*?</ul>',home,re.S)),'no skill percentages'

@@ -1,11 +1,23 @@
 #!/usr/bin/env python3
 """Generate a static, published-only GitHub Pages artifact using Python's standard library."""
-import html, json, re, shutil, sys
+import html, json, os, re, shutil, sys
 from pathlib import Path
 from urllib.parse import urlparse
 R=Path(__file__).resolve().parent.parent
 OUT=R/'dist'
+REPOSITORY=os.environ.get('GITHUB_REPOSITORY','').strip()
+REPOSITORY_NAME=REPOSITORY.rsplit('/',1)[-1] if REPOSITORY else ''
+BASE_PATH='' if not REPOSITORY_NAME or REPOSITORY_NAME.endswith('.github.io') else '/'+REPOSITORY_NAME
 E=lambda value: html.escape(str(value or ''), quote=True)
+
+def site_path(path):
+    """Prefix an internal absolute path with the GitHub Pages project path when needed."""
+    return BASE_PATH+'/'+str(path).lstrip('/')
+
+def prefix_root_urls(source):
+    """Prefix root-relative href/src attributes in source templates, not generated body HTML."""
+    if not BASE_PATH: return source
+    return re.sub(r"((?:href|src)=['\"]) /(?!/)".replace(' ',''), lambda m: m.group(1)+BASE_PATH+'/', source)
 
 def read(path):
     with open(path,encoding='utf8') as f: return json.load(f)
@@ -28,7 +40,7 @@ def media(value,exts=None):
     if not path.is_relative_to(root) or not path.is_file() or path.is_symlink(): raise ValueError('Missing or unsafe media: '+rel)
     if exts and path.suffix.lower() not in exts: raise ValueError('Unsupported media format: '+rel)
     out=OUT/rel; out.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(path,out)
-    return '/'+rel
+    return site_path(rel)
 
 IMG={'.jpg','.jpeg','.png','.webp','.gif','.avif','.svg'}
 DOC=IMG|{'.pdf'}
@@ -47,7 +59,7 @@ def records(folder):
         ids.add(ident); slugs.add(slug); result.append(obj)
     return sorted(result,key=lambda x:(float(x.get('order',0)),x['id']))
 
-def details_url(kind,item): return '/'+kind+'/'+item['slug']+'/'
+def details_url(kind,item): return site_path(kind+'/'+item['slug']+'/')
 
 # ---------- Icons (hand-drawn line icons plus the official GitHub and LinkedIn marks) ----------
 ICONS={
@@ -230,6 +242,7 @@ def feature_list(items):
 def page(template,title,meta,body,profile):
     values={'TITLE':title+' | '+profile['name'],'META':meta or title,'NAME':profile['name']}
     for k,v in values.items(): template=template.replace('{{'+k+'}}',E(v))
+    template=prefix_root_urls(template)
     return template.replace('{{BODY}}',body)
 
 def check_output(text_value,where):
@@ -267,7 +280,7 @@ def do_build():
     if not re.fullmatch(r'[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+',email): raise ValueError('Invalid public email')
     linkedin=valid_url(profile.get('linkedin')); telegram=valid_url(profile.get('telegram')); github=valid_url(profile.get('github'))
 
-    t=(R/'index.html').read_text(encoding='utf8')
+    t=prefix_root_urls((R/'index.html').read_text(encoding='utf8'))
     t=re.sub(r'<title>.*?</title>',lambda m:'<title>'+E(display+' | '+title)+'</title>',t,count=1,flags=re.S)
     t=re.sub(r'<meta name="description" content="[^"]*">',lambda m:'<meta name="description" content="'+E(display+': '+intro)+'">',t,count=1)
     t=fill(t,'profile.name',E(display))
@@ -367,7 +380,7 @@ def do_build():
     for p in projects:
         name=txt(p['name']); full=txt(p.get('full_name')); summary=txt(p.get('summary'))
         links=project_links(p)
-        body=('<a class="back-link" href="/#portfolio">'+icon('arrow-left')+'<span>Back to portfolio</span></a>'
+        body=(f'<a class="back-link" href="{E(site_path("/#portfolio"))}">'+icon('arrow-left')+'<span>Back to portfolio</span></a>'
               '<header class="detail-hero">'+(f'<div class="detail-hero__badges">{badges(p)}</div>' if badges(p) else '')+f'<h1>{E(name)}</h1>'
               +(f'<p class="detail-hero__sub">{E(full)}</p>' if full else '')+(f'<p class="detail-hero__lead">{E(summary)}</p>' if summary else '')
               +(f'<div class="detail-hero__actions">{links}</div>' if links else '')+'</header>')
@@ -388,11 +401,12 @@ def do_build():
         related=[p for p in projects if s['id'] in (p.get('skills') or [])]
         if related: content+=section('Related projects','<ul class="link-list">'+''.join(f'<li><a href="{details_url("projects",p)}">{E(txt(p["name"]))}</a></li>' for p in related)+'</ul>')
         if not content: content='<p class="detail-empty">Details and supporting evidence for this skill will be added soon.</p>'
-        body=('<a class="back-link" href="/#skills">'+icon('arrow-left')+'<span>Back to skills</span></a>'
+        body=(f'<a class="back-link" href="{E(site_path("/#skills"))}">'+icon('arrow-left')+'<span>Back to skills</span></a>'
               f'<header class="detail-hero detail-hero--skill">{skill_icon_box(s,large=True)}<h1>{E(name)}</h1></header>'+content)
         out=OUT/'skills'/s['slug']; out.mkdir(parents=True)
         html_out=page(st,name,txt(s.get('description')) or name,body,profile); check_output(html_out,'skill '+s['slug']); (out/'index.html').write_text(html_out,encoding='utf8')
-    (OUT/'404.html').write_text('<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%229%22 fill=%22%231d3b5e%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-family=%22Arial%22 font-size=%2212%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3ESA%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"></head><body><main class="detail-shell not-found"><p class="not-found__code">404</p><h1>Page not found</h1><p>We could not find this page.</p><a class="button button--primary" href="/">Back to home</a></main></body></html>',encoding='utf8')
+    not_found='<!doctype html><html lang="en" dir="ltr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%229%22 fill=%22%231d3b5e%22/%3E%3Ctext x=%2216%22 y=%2221%22 font-family=%22Arial%22 font-size=%2212%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22%3ESA%3C/text%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"></head><body><main class="detail-shell not-found"><p class="not-found__code">404</p><h1>Page not found</h1><p>We could not find this page.</p><a class="button button--primary" href="/">Back to home</a></main></body></html>'
+    (OUT/'404.html').write_text(prefix_root_urls(not_found),encoding='utf8')
     print(f'Built {len(projects)} published projects and {len(skills)} published skills to dist/.')
 
 if __name__=='__main__':
