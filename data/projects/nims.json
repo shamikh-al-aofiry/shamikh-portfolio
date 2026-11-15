@@ -2,11 +2,12 @@
   "id": "nims",
   "slug": "nims",
   "name": "NIM&S",
+  "status": "published",
+  "order": 1,
+  "context": "Graduation project",
+  "stage": "in-progress",
   "full_name": "Network Infrastructure Management & Security",
   "summary": "A university graduation project for a centralized network infrastructure management and monitoring platform. The project is being planned and developed.",
-  "overview": "",
-  "problem": "",
-  "objectives": "",
   "role": "Project Manager and Infrastructure Coordinator",
   "features": [
     {
@@ -108,17 +109,10 @@
       "status": "planned"
     }
   ],
-  "cover": "",
-  "images": [],
-  "evidence": [],
-  "video_url": "",
-  "github_url": "",
-  "live_url": "",
-  "skills": [],
-  "featured": true,
-  "status": "published",
-  "order": 1,
+  "cover": "/media/projects/img20261109224857.jpg",
+  "images": [
+    "/media/projects/img20261109235204.jpg"
+  ],
   "live_verified": false,
-  "context": "Graduation project",
-  "stage": "in-progress"
+  "featured": true
 }
