@@ -103,19 +103,11 @@
     {
       "text": "Docker",
       "status": "planned"
-    },
-    {
-      "text": "Nginx (where needed)",
-      "status": "planned"
-    },
-    {}
+    }
   ],
   "cover": "/media/projects/img20261109235204-1.jpg",
   "images": [
     "/media/projects/img20261109235204.jpg"
-  ],
-  "evidence": [
-    {}
   ],
   "live_verified": false,
   "featured": true
